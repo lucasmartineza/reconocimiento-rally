@@ -224,15 +224,17 @@ function drawRoutes(hl){
 }
 
 function buildPanel(aName){
-  var seen={}, html='<div class="ph">Tramos de etapa</div>';
-  for(var i=0;i<LINES.length;i++){
-    var ln=LINES[i];
-    if(!ln.stage||ln.name==="Shakedown") continue;
-    var m=SMETA[ln.name];
-    if(!m||seen[ln.name]) continue;
-    seen[ln.name]=true;
-    var a=ln.name===aName;
-    html+='<div class="pr'+(a?' active':'')+'" onclick="clickStage(this.dataset.n)" data-n="'+ln.name+'">'
+  var ORDER=["Tala Canada- Rio Jaime","El Cruce- Ambul","El Mirador- Cuesta San Luis","Nido del Aguila-Aerodromo","El Faro- San Jose","PE 8-11","Giulio Cesare- Mina Clavwro"];
+  var panel=document.getElementById("panel");
+  var collapsed=panel.dataset.collapsed==='1';
+  var html='<div class="ph" onclick="togglePanel()">Tramos de etapa<span class="ph-arrow'+(collapsed?' collapsed':'')+'">&#9660;</span></div>'
+    +'<div class="panel-body'+(collapsed?' collapsed':'')+'" id="panel-body" style="max-height:500px;">';
+  for(var i=0;i<ORDER.length;i++){
+    var name=ORDER[i];
+    var m=SMETA[name];
+    if(!m) continue;
+    var a=name===aName;
+    html+='<div class="pr'+(a?' active':'')+'" onclick="clickStage(this.dataset.n)" data-n="'+name+'">'
       +'<div><div class="pr-name'+(a?' active':'')+'">'+m.label+'</div>'
       +(m.sub?'<div class="pr-sub">'+m.sub+'</div>':'')
       +'</div><div class="pr-dot'+(a?' active':'')+'"></div></div>';
@@ -241,7 +243,8 @@ function buildPanel(aName){
   html+='<div class="pr'+(sda?' active':'')+'" onclick="clickStage(this.dataset.n)" data-n="Shakedown">'
     +'<div><div class="pr-name'+(sda?' active':'')+'" style="color:'+(sda?'#fff':'var(--muted)')+'">Shakedown</div></div>'
     +'<div class="pr-dot'+(sda?' active':'')+'"></div></div>';
-  document.getElementById("panel").innerHTML=html;
+  html+='</div>';
+  panel.innerHTML=html;
 }
 
 function clickStage(name){
