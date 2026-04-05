@@ -247,8 +247,15 @@ function buildPanel(aName){
   panel.innerHTML=html;
 }
 
+
+function togglePanel(){
+  var panel=document.getElementById("panel");
+  panel.dataset.collapsed = panel.dataset.collapsed==='1' ? '0' : '1';
+  buildPanel(window._aStage||null);
+}
 function clickStage(name){
   aStage=(aStage===name)?null:name;
+  window._aStage=aStage;
   buildPanel(aStage); drawRoutes(aStage);
 }
 
