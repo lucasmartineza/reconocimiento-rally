@@ -144,7 +144,7 @@ var POINTS = [
     "lon": -64.909,
     "file": "inicio_pe_10_13.jpg",
     "type": "etapa",
-    "signal": "Claro y Personal",
+    "signal": "Sin señal",
     "km": 0
   },
   {
@@ -153,7 +153,7 @@ var POINTS = [
     "lon": -64.97497,
     "file": "final_pe_10_13.jpg",
     "type": "etapa",
-    "signal": "Claro y Personal",
+    "signal": "Sin señal",
     "km": 0
   },
   {
@@ -288,7 +288,7 @@ var POINTS = [
     "lon": -65.026577,
     "file": "ese_sobre_final.jpg",
     "type": "locacion",
-    "signal": "Claro y Personal",
+    "signal": "Sin señal",
     "km": 19.4
   },
   {
@@ -297,7 +297,7 @@ var POINTS = [
     "lon": -65.031041,
     "file": "punto_panoramico_1.jpg",
     "type": "locacion",
-    "signal": "Solo Personal",
+    "signal": "Sin señal",
     "km": 17.5
   },
   {
@@ -306,7 +306,7 @@ var POINTS = [
     "lon": -65.032463,
     "file": "curvon_derecha.jpg",
     "type": "locacion",
-    "signal": "Solo Personal",
+    "signal": "Sin señal",
     "km": 16.9
   },
   {
@@ -315,7 +315,7 @@ var POINTS = [
     "lon": -65.052437,
     "file": "cruce_con_camino_alternativo.jpg",
     "type": "locacion",
-    "signal": "Claro y Personal",
+    "signal": "Sin señal",
     "km": 14.0
   },
   {
@@ -324,7 +324,7 @@ var POINTS = [
     "lon": -65.047192,
     "file": "vado_panaholma.jpg",
     "type": "locacion",
-    "signal": "Poca señal",
+    "signal": "Sin señal",
     "km": 9.4
   },
   {
@@ -344,15 +344,6 @@ var POINTS = [
     "type": "locacion",
     "signal": "Sin señal",
     "km": 10.5
-  },
-  {
-    "name": "Lomo en quiebre de asfalto",
-    "lat": -31.472223,
-    "lon": -65.019885,
-    "file": "lomo_en_quiebre_de_asfalto.jpg",
-    "type": "locacion",
-    "signal": "Sin señal",
-    "km": 8.4
   },
   {
     "name": "Punto panoramico",
@@ -821,17 +812,17 @@ function makeFlag(type) {
   if (type === 'start') {
     var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="28" viewBox="0 0 20 28">'
       + '<line x1="2" y1="2" x2="2" y2="26" stroke="#fff" stroke-width="1.5"/>'
-      + '<rect x="2" y="2" width="14" height="9" fill="#fff"/>'
-      + '<rect x="2" y="2" width="7" height="4.5" fill="#fff"/>'
-      + '<rect x="9" y="2" width="7" height="4.5" fill="#0d1b2e"/>'
-      + '<rect x="2" y="6.5" width="7" height="4.5" fill="#0d1b2e"/>'
-      + '<rect x="9" y="6.5" width="7" height="4.5" fill="#fff"/>'
+      + '<rect x="2" y="2" width="14" height="9" fill="#fff" opacity="0.9"/>'
       + '</svg>';
     return L.divIcon({html:svg,className:'',iconSize:[20,28],iconAnchor:[2,26]});
   } else {
     var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="28" viewBox="0 0 20 28">'
       + '<line x1="2" y1="2" x2="2" y2="26" stroke="#fff" stroke-width="1.5"/>'
-      + '<rect x="2" y="2" width="14" height="9" fill="#fff" opacity="0.9"/>'
+      + '<rect x="2" y="2" width="14" height="9" fill="#fff"/>'
+      + '<rect x="2" y="2" width="7" height="4.5" fill="#fff"/>'
+      + '<rect x="9" y="2" width="7" height="4.5" fill="#0d1b2e"/>'
+      + '<rect x="2" y="6.5" width="7" height="4.5" fill="#0d1b2e"/>'
+      + '<rect x="9" y="6.5" width="7" height="4.5" fill="#fff"/>'
       + '</svg>';
     return L.divIcon({html:svg,className:'',iconSize:[20,28],iconAnchor:[2,26]});
   }
