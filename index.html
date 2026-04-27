@@ -1168,11 +1168,21 @@ function onPhoto(e) {
   const f=e.target.files[0]; if(!f) return;
   const r=new FileReader();
   r.onload=ev=>{
-    const data=ev.target.result;
-    document.getElementById('photo-prev').src=data;
-    document.getElementById('photo-preview-wrap').style.display='block';
-    document.getElementById('photo-opts-row').style.display='none';
-    if(ST.curPt) ST.curPt._photo=data;
+    const original=ev.target.result;
+    // Compress to 20% of original dimensions before storing
+    const img=new Image();
+    img.onload=()=>{
+      const canvas=document.createElement('canvas');
+      canvas.width  = Math.round(img.naturalWidth  * 0.2);
+      canvas.height = Math.round(img.naturalHeight * 0.2);
+      canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+      const compressed = canvas.toDataURL('image/jpeg', 0.75);
+      document.getElementById('photo-prev').src=compressed;
+      document.getElementById('photo-preview-wrap').style.display='block';
+      document.getElementById('photo-opts-row').style.display='none';
+      if(ST.curPt) ST.curPt._photo=compressed;
+    };
+    img.src=original;
   };
   r.readAsDataURL(f); e.target.value='';
 }
@@ -1520,13 +1530,13 @@ async function genPDF(){
   ST.points.forEach(pt=>{const k=pt.tramo||'Sin tramo';if(!groups[k])groups[k]=[];groups[k].push(pt);});
   const orderedKeys=[...ST.tramos.map(t=>t.name).filter(n=>groups[n]),...Object.keys(groups).filter(k=>!ST.tramos.find(t=>t.name===k))];
 
-  // Generate tramo images first (async, one at a time to avoid OOM)
+  // Generate tramo images one at a time
   const tramoImgs={};
   for(const key of orderedKeys){
     const tramo=ST.tramos.find(t=>t.name===key);
     if(tramo){
-      await new Promise(r=>setTimeout(r,30)); // yield to browser
-      tramoImgs[key]=renderTramoImage(tramo, groups[key]||[], 900, 520);
+      await new Promise(r=>setTimeout(r,30));
+      tramoImgs[key]=renderTramoImage(tramo, groups[key]||[], 500, 290);
     }
   }
 
